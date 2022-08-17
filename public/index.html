@@ -7,7 +7,34 @@
 </head>
 <body>
 
-    <h1>Acceso Denegado</h1>
-    
+    <h1>GOOGLE SINGIN</h1> <hr>
+
+        <div id="g_id_onload"
+            data-client_id="221199859335-p419ic3vh0ptt8r8tjrlk6crk7t4q965.apps.googleusercontent.com"
+            data-auto_prompt="false"
+            data-callback="handleCredentialResponse">
+        </div>
+
+        <div class="g_id_signin"
+        data-type="standard"
+            data-size="large"
+            data-theme="outline"
+            data-text="sign_in_with"
+            data-shape="rectangular"
+            data-logo_alignment="left">
+        </div>
+
+
+        <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+        <script>
+                function handleCredentialResponse(response) {
+
+                    //Google Token
+                    console.log('id_token', response.credential);
+
+                }
+        </script>
+
 </body>
 </html>
