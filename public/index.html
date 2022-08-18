@@ -16,7 +16,7 @@
         </div>
 
         <div class="g_id_signin"
-        data-type="standard"
+            data-type="standard"
             data-size="large"
             data-theme="outline"
             data-text="sign_in_with"
@@ -28,26 +28,23 @@
         <script src="https://accounts.google.com/gsi/client" async defer></script>
 
         <script>
-                function handleCredentialResponse(response) {
+            function handleCredentialResponse(response) {
 
-                    //Google Token
-                    // console.log('id_token', response.credential);
-                    const body = {id_token: response.credential};
+                const body = { id_token: response.credential };
 
-                    fetch ('http://localhost:3001/auth/google', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify()
-                    })
-                    .then( res => res.json())
-                    .then( res => {
-                        console.log(res);
-                    })
+                fetch('http://localhost:3001/auth/google',{
+                    method: 'POST',
+                    headers: {
+                        'Content-Type':'application/json'
+                    },
+                    body: JSON.stringify(body)
+                })
+                    .then( resp => resp.json() )
+                    .then( resp =>{
+                        console.log(resp);
+                    } )
                     .catch( console.warn );
-
-                }
+            }
         </script>
 
 </body>
