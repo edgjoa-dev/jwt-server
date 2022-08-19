@@ -30,7 +30,15 @@ const crearCategoria = async(req, res = response) => {
     });
 }
 
+const obtenerCategorias = () => {
+
+
+
+}
+
+
 
 module.exports = {
     crearCategoria,
+    obtenerCategorias,
 }
