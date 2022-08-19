@@ -6,14 +6,15 @@ const {
     crearCategoria,
     obtenerCategorias,
     obtenerCategoria,
-    actualizarCategoria
+    actualizarCategoria,
+    eliminarCategoria
 
 } = require('../controllers/categorias');
 
 
 const { existeCategoriaPorId } = require('../helpers/db-validators');
 
-const { validarJWT, validarCampos,  } = require('../middlewares');
+const { validarJWT, validarCampos, tieneRole,  } = require('../middlewares');
 
 
 const router = Router();
@@ -45,11 +46,13 @@ router.put('/:id',[
 
 
 
-router.delete('/:id', ( req, res ) => {
-    res.json({
-        msg: 'categoria eliminada'
-    })
-})
+router.delete('/:id', [
+    validarJWT,
+    tieneRole('ADMIN_ROLE', 'VENTAR_ROLE'),
+    check('id', 'No es un id de mongo válido...').isMongoId(),
+    check('id').custom(existeCategoriaPorId),
+    validarCampos,
+], eliminarCategoria)
 
 
 
