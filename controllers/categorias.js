@@ -1,6 +1,5 @@
 const { response }  = require('express');
 const { Categoria } = require('../models');
-const categoria = require('../models/categoria');
 
 
 
@@ -63,10 +62,27 @@ const obtenerCategoria = async( req, res = response ) => {
 
 }
 
+const actualizarCategoria = async( req, res = response ) => {
+
+    const { id } = req.params;
+    const {estado, usuario, ...data} = req.body;
+
+    data.nombre = data.nombre.toUpperCase();
+    data.usuario = req.usuario._id;
+
+    const categoria = await Categoria.findByIdAndUpdate(id, data, {new: true});
+
+    res.status(200).json({
+        categoria
+    });
+
+}
+
 
 
 module.exports = {
     crearCategoria,
     obtenerCategorias,
     obtenerCategoria,
+    actualizarCategoria,
 }

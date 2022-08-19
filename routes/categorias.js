@@ -1,7 +1,16 @@
 const { Router } = require('express');
 
 const { check } = require('express-validator');
-const { crearCategoria, obtenerCategorias, obtenerCategoria } = require('../controllers/categorias');
+const {
+
+    crearCategoria,
+    obtenerCategorias,
+    obtenerCategoria,
+    actualizarCategoria
+
+} = require('../controllers/categorias');
+
+
 const { existeCategoriaPorId } = require('../helpers/db-validators');
 
 const { validarJWT, validarCampos,  } = require('../middlewares');
@@ -27,12 +36,12 @@ router.post('/', [
 ] , crearCategoria);
 
 
-
-router.put('/:id', (req, res) => {
-    res.json({
-        msg: 'categoria actualizada'
-    })
-})
+router.put('/:id',[
+    validarJWT,
+    check('nombre', 'El nombre es obligatorio').not().isEmpty(),
+    check('id', 'No es un id de mongo válido...').isMongoId(),
+    validarCampos,
+],actualizarCategoria)
 
 
 
