@@ -12,7 +12,7 @@ const {
 } = require('../controllers/productos');
 
 
-const { existeCategoriaPorId, existeProductoPorId } = require('../helpers/db-validators');
+const { existeProductoPorId } = require('../helpers/db-validators');
 
 const { validarJWT, validarCampos, tieneRole,  } = require('../middlewares');
 
@@ -42,7 +42,7 @@ router.post('/', [
 
 router.put('/:id',[
     validarJWT,
-    check('categoria', 'No es in id válido').isMongoId(),
+    //check('categoria', 'No es in id válido').isMongoId(),
     check('id').custom(existeProductoPorId),
     validarCampos,
 ], actualizarProducto);
