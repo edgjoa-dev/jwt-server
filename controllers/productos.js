@@ -76,10 +76,13 @@ const actualizarProducto = async( req, res = response ) => {
     const { id } = req.params;
     const {estado, usuario, ...data} = req.body;
 
-    data.nombre = data.nombre.toUpperCase();
+
+    if (data.nombre) {
+        data.nombre = data.nombre.toUpperCase();
+    }
     data.usuario = req.usuario._id;
 
-    const producto = await Categoria.findByIdAndUpdate(id, data, {new: true});
+    const producto = await Producto.findByIdAndUpdate(id, data, {new: true});
 
     res.status(201).json({
         producto
@@ -90,9 +93,9 @@ const actualizarProducto = async( req, res = response ) => {
 const eliminarProducto = async ( req, res = response ) => {
 
     const { id } = req.params;
-    const categoriaEliminada = await Categoria.findByIdAndUpdate( id, { estado: false }, {new: true} );
+    const productoEliminado = await Producto.findByIdAndUpdate( id, { estado: false }, {new: true} );
 
-    res.status(200).json(categoriaEliminada);
+    res.status(200).json(productoEliminado);
 
 }
 
