@@ -54,8 +54,9 @@ const crearProducto = async(req, res = response) => {
     }
     //generar la data a guardar
     const data = {
-        nombre,
-        usuario: req.usuario._id
+        ...body,
+        nombre: body.nombre.toUpperCase(),
+        usuario: req.usuario._id,
     }
     //crear producto
     const producto = new Producto(data);
