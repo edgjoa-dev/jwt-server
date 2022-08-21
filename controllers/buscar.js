@@ -49,13 +49,36 @@ const buscarCategorias = async( termino = '', res = response ) => {
 
     const regex = new RegExp( termino, 'i');
 
-    const categoria = await Categoria.find({
+    const categorias = await Categoria.find({
         $or: [ {nombre: regex}],
         $and: [{ estado: true }]
     })
 
     res.json({
-        results: categoria
+        results: categorias
+    })
+
+}
+const buscarProductos = async( termino = '', res = response ) => {
+
+    const esMongoID = ObjectId.isValid(termino);
+
+    if( esMongoID ){
+        const producto = await Producto.findById( termino );
+        return res.json({
+            results: (producto) ? [producto] : []
+        })
+    }
+
+    const regex = new RegExp( termino, 'i');
+
+    const producto = await Producto.find({
+        $or: [ {nombre: regex}],
+        $and: [{ estado: true }]
+    })
+
+    res.json({
+        results: producto
     })
 
 }
@@ -84,7 +107,7 @@ const buscar = ( req, res = response ) => {
         break;
 
         case 'productos':
-
+            buscarProductos( termino, res );
         break;
 
         default:
