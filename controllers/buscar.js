@@ -10,9 +10,6 @@ const coleccionesPermitidas = [
     'roles'
 ]
 
-
-
-
 const buscarUsuarios = async( termino = '', res = response ) => {
 
     const esMongoID = ObjectId.isValid(termino);
@@ -64,7 +61,7 @@ const buscarProductos = async( termino = '', res = response ) => {
     const esMongoID = ObjectId.isValid(termino);
 
     if( esMongoID ){
-        const producto = await Producto.findById( termino );
+        const producto = await Producto.findById( termino ).populate('categoria','nombre');
         return res.json({
             results: (producto) ? [producto] : []
         })
@@ -72,17 +69,16 @@ const buscarProductos = async( termino = '', res = response ) => {
 
     const regex = new RegExp( termino, 'i');
 
-    const producto = await Producto.find({
+    const productos = await Producto.find({
         $or: [ {nombre: regex}],
         $and: [{ estado: true }]
-    })
+    }).populate('categoria','nombre')
 
     res.json({
-        results: producto
+        results: productos
     })
 
 }
-
 
 
 const buscar = ( req, res = response ) => {
