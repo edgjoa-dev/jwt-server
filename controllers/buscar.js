@@ -36,6 +36,29 @@ const buscarUsuarios = async( termino = '', res = response ) => {
     })
 
 }
+const buscarCategorias = async( termino = '', res = response ) => {
+
+    const esMongoID = ObjectId.isValid(termino);
+
+    if( esMongoID ){
+        const categoria = await Categoria.findById( termino );
+        return res.json({
+            results: (categoria) ? [categoria] : []
+        })
+    }
+
+    const regex = new RegExp( termino, 'i');
+
+    const categoria = await Categoria.find({
+        $or: [ {nombre: regex}],
+        $and: [{ estado: true }]
+    })
+
+    res.json({
+        results: categoria
+    })
+
+}
 
 
 
@@ -56,6 +79,7 @@ const buscar = ( req, res = response ) => {
         break;
 
         case 'categorias':
+            buscarCategorias( termino, res );
 
         break;
 
