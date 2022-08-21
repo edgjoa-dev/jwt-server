@@ -14,17 +14,25 @@ const cargarArchivos = async( req, res = response ) => {
 
     try {
         // Obtener nombre del archivo
-        const nombre = await subirArchivo( req.files, ['txt','md'] )
+        const nombre = await subirArchivo( req.files, undefined, 'imgs' );
         res.json({ nombre });
 
     } catch (error) {
         res.status().json({ msg });
     }
+}
 
+const actualizarImagen = async( req, res = response ) => {
+
+    const { id, coleccion } = req.params;
+
+    res.json({ id, coleccion });
 
 }
 
 
+
 module.exports = {
-    cargarArchivos
+    cargarArchivos,
+    actualizarImagen,
 }

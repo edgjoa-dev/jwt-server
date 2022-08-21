@@ -49,7 +49,8 @@ class Server {
         // Note that this option available for versions 1.0.0 and newer.
         this.app.use(fileUpload({
         useTempFiles : true,
-        tempFileDir : '/tmp/'
+        tempFileDir : '/tmp/',
+        createParentPath: true
 }));
 
     }
