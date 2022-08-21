@@ -12,12 +12,15 @@ const cargarArchivos = async( req, res = response ) => {
         return;
     }
 
-    // Obtener nombre del archivo
-    const nombre = await subirArchivo( req.files )
+    try {
+        // Obtener nombre del archivo
+        const nombre = await subirArchivo( req.files, ['txt','md'] )
+        res.json({ nombre });
 
-    res.json({
-        nombre
-    });
+    } catch (error) {
+        res.status().json({ msg });
+    }
+
 
 }
 
