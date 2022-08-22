@@ -107,12 +107,10 @@ const mostrarImagen = async( req, res = response ) => {
         if (fs.existsSync(pathImage)) {
             return res.sendFile(pathImage)
         }
-
     }
 
-    res.json({
-        msg: 'Falta placeholder de la img'
-    });
+    const pathImage = path.join( __dirname, '../assets/no-profile-icon.png' )
+        res.sendFile(pathImage)
 
 }
 
