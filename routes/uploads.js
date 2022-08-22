@@ -23,7 +23,6 @@ router.put('/:coleccion/:id', [
 
 
 router.get('/:coleccion/:id', [
-    validarArchivoSubir,
     check('id', 'El id no es válido').isMongoId(),
     check('coleccion').custom( c => coleccionesPermitidas(c, ['usuarios','productos'])),
     validarCampos
