@@ -25,7 +25,6 @@ const cargarArchivos = async( req, res = response ) => {
 const actualizarImagen = async( req, res = response ) => {
 
     const { id, coleccion } = req.params;
-
     let modelo;
 
     switch (coleccion) {
@@ -39,10 +38,11 @@ const actualizarImagen = async( req, res = response ) => {
 
             break;
 
-        case 'productos':
+            case 'productos':
+            modelo: await Producto.findById(id);
             if(!modelo){
                 return res.status(500).json({
-                    msg: `No se pudo actualizar la imagen del usuario ${id}`
+                    msg: `No se pudo actualizar la imagen del producto ${id}`
                 })
             }
 
@@ -51,7 +51,9 @@ const actualizarImagen = async( req, res = response ) => {
         default:
             return res.status(500).json({ msg: 'En espera de ser validado'});
     }
-
+    const nombre = await subirArchivo( req.files, undefined, coleccion );
+    modelo.img = nombre;
+    await modelo.save();
 
     res.json({ id, coleccion });
 
