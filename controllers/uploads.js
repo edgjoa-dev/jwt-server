@@ -69,9 +69,16 @@ const actualizarImagen = async( req, res = response ) => {
 
 }
 
+const mostrarImagen = async( req, res = response ) => {
+
+
+
+}
+
 
 
 module.exports = {
     cargarArchivos,
     actualizarImagen,
+    mostrarImagen,
 }
