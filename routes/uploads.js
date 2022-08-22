@@ -27,6 +27,6 @@ router.get('/:coleccion/:id', [
     check('id', 'El id no es válido').isMongoId(),
     check('coleccion').custom( c => coleccionesPermitidas(c, ['usuarios','productos'])),
     validarCampos
-],mostrarImagen);
+], mostrarImagen);
 
 module.exports = router;

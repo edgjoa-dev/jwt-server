@@ -78,6 +78,7 @@ const actualizarImagen = async( req, res = response ) => {
 const actualizarImagenCloudinary = async( req, res = response ) => {
 
     const { id, coleccion } = req.params;
+
     let modelo;
 
     switch (coleccion) {
@@ -161,14 +162,14 @@ const mostrarImagen = async( req, res = response ) => {
     // imagenes
     if(modelo.img){
         //Borrar img del servidor
-        const pathImage = path.join( __dirname, '../uploads', coleccion, modelo.img )
-        if (fs.existsSync(pathImage)) {
-            return res.sendFile(pathImage)
+        const pathImagen = path.join( __dirname, '../uploads', coleccion, modelo.img )
+        if (fs.existsSync(pathImagen)) {
+            return res.sendFile(pathImagen)
         }
     }
 
-    const pathImage = path.join( __dirname, '../assets/no-profile-icon.png' )
-        res.sendFile(pathImage)
+    const pathImagen = path.join( __dirname, '../assets/no-profile-icon.png' )
+        res.sendFile(pathImagen)
 
 }
 
