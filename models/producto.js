@@ -32,6 +32,7 @@ const ProductoSchema = Schema({
         type: Boolean,
         default: true,
     }
+
 });
 
 ProductoSchema.methods.toJSON = function() {
