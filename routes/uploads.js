@@ -4,17 +4,18 @@ const { cargarArchivos, actualizarImagen } = require('../controllers/uploads');
 const { coleccionesPermitidas } = require('../helpers/db-validators');
 
 
-const { validarCampos } = require('../middlewares/validar-campos');
+const { validarCampos, validarArchivoSubir } = require('../middlewares');
 
 
 
 
 const router = Router();
 
-router.post('/', cargarArchivos);
+router.post('/', validarArchivoSubir, cargarArchivos);
 router.put('/:coleccion/:id', [
-    check('coleccion').custom( c => coleccionesPermitidas( c, ['usuarios','productos'])),
+    validarArchivoSubir,
     check('id', 'El id no es válido').isMongoId(),
+    check('coleccion').custom( c => coleccionesPermitidas(c, ['usuarios','productos'])),
     validarCampos
 ],actualizarImagen);
 
